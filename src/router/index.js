@@ -1,11 +1,12 @@
 import {createWebHashHistory,createRouter} from 'vue-router'
 
 
+//定义懒加载路由
+const Login = () => import('../views/Login.vue');
+
 // 2. 定义一些路由
-// 每个路由都需要映射到一个组件。
-// 我们后面再讨论嵌套路由。
 const routes = [
-    // { path: '/', component: Index },
+    { path: '/login', component: Login },
     // { path: '/about', component: About },
 ]
 
