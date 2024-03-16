@@ -3,6 +3,7 @@
   import { User, Lock } from '@element-plus/icons-vue'
   import { login } from '../api/login.js';
   import { ElMessage } from 'element-plus'
+  import { CONFIG } from '../config/index.js';
 
   const loginInfo = reactive({
     pass: '',
@@ -39,7 +40,7 @@
   })
 
   //登录接口
-  const submitForm = async() =>{
+  const submitForm = () =>{
     // console.log()
     // request(
     //   'https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',
@@ -47,17 +48,21 @@
     //   'post',
     //   2000)
     
-    await login(loginInfo.username,loginInfo.pass)
+    login(loginInfo.username,loginInfo.pass)
     //打印是否登录
     .then((response) => {
       console.log("登录成功，response:",response)
       // response.status http请求的状态,axios自动返回的
       // response.data.status 后端返回的状态，需要后端提供data.status
       if ( response.data.status == 200 ){
+        //token存到本地
+        const token = response.data.data.token
+        //将token存储到localStorage的Authorization字段中
+        window.localStorage.setItem(CONFIG.TOKEN_NAME,token)
         // 登录成功提示
         ElMessage({
-        message: response.data.message,
-        type: 'success',
+          message: response.data.message,
+          type: 'success',
        })
       }
     })
