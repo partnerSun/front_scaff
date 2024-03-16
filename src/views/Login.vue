@@ -1,7 +1,7 @@
 <script  setup>
   import { reactive, ref, watch } from 'vue';
   import { User, Lock } from '@element-plus/icons-vue'
-
+ import request from '../api/index.js'
 
   const loginInfo = reactive({
     pass: '',
@@ -34,14 +34,19 @@
         loginState.value = true
       }
     })
-  })
 
+  })
+  //登录接口
+  const submitForm = () =>{
+    // console.log()
+    request('https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',{"username":loginInfo.username,"password":loginInfo.pass},'post',2000)
+  }
 
 </script>
 
 <template>
     <el-card style="width: 300px;">
-      <h2>后台管理系统</h2>
+      <h3>后台管理系统</h3>
       <el-form
       :model="loginInfo"
       status-icon
@@ -56,11 +61,14 @@
       <el-input :prefix-icon="Lock" show-password v-model="loginInfo.pass" type="password" autocomplete="off" placeholder="请输入密码" clearable />
     </el-form-item>
 
-    <el-form-item>
-      <el-button type="primary" @click="disLogin()" style="display: flex; place-items: center;" :disabled="loginState">
+    <!-- <el-form-item> -->
+    <div style="display: flex;justify-content: center;align-items:center">
+        <el-button type="primary" @click="submitForm()"  :disabled="loginState">
         登录
       </el-button>
-    </el-form-item>
+    </div>
+
+    <!-- </el-form-item> -->
 
   </el-form>
   </el-card>
