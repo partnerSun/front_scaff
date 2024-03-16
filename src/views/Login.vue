@@ -1,7 +1,8 @@
 <script  setup>
   import { reactive, ref, watch } from 'vue';
   import { User, Lock } from '@element-plus/icons-vue'
- import request from '../api/index.js'
+  import { login } from '../api/login.js';
+  import { ElMessage } from 'element-plus'
 
   const loginInfo = reactive({
     pass: '',
@@ -36,18 +37,30 @@
     })
 
   })
+
   //登录接口
-  const submitForm = () =>{
+  const submitForm = async() =>{
     // console.log()
-    request(
-      'https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',
-      {"username":loginInfo.username,"password":loginInfo.pass},
-      'post',
-      2000)
-      //打印是否登录
-     .then((response)=>{
-        console.log("登录成功",response)
-     })
+    // request(
+    //   'https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',
+    //   {"username":loginInfo.username,"password":loginInfo.pass},
+    //   'post',
+    //   2000)
+    
+    await login(loginInfo.username,loginInfo.pass)
+    //打印是否登录
+    .then((response) => {
+      console.log("登录成功，response:",response)
+      // response.status http请求的状态,axios自动返回的
+      // response.data.status 后端返回的状态，需要后端提供data.status
+      if ( response.data.status == 200 ){
+        // 登录成功提示
+        ElMessage({
+        message: response.data.message,
+        type: 'success',
+       })
+      }
+    })
      //.catch错误处理在守卫中
   
   }
@@ -56,7 +69,7 @@
 
 <template>
     <el-card style="width: 300px;">
-      <h3>后台管理系统</h3>
+      <h4>后台管理系统</h4>
       <el-form
       :model="loginInfo"
       status-icon
@@ -87,4 +100,4 @@
 
 <style scoped>
 
-</style>
+</style>../api/login.js
