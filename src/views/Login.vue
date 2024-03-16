@@ -44,12 +44,12 @@
       {"username":loginInfo.username,"password":loginInfo.pass},
       'post',
       2000)
+      //打印是否登录
      .then((response)=>{
         console.log("登录成功",response)
      })
-     .error((error)=>{
-      console.log("登录失败",error)
-     })
+     //.catch错误处理在守卫中
+  
   }
 
 </script>
