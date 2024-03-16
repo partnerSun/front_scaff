@@ -39,7 +39,17 @@
   //登录接口
   const submitForm = () =>{
     // console.log()
-    request('https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',{"username":loginInfo.username,"password":loginInfo.pass},'post',2000)
+    request(
+      'https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',
+      {"username":loginInfo.username,"password":loginInfo.pass},
+      'post',
+      2000)
+     .then((response)=>{
+        console.log("登录成功",response)
+     })
+     .error((error)=>{
+      console.log("登录失败",error)
+     })
   }
 
 </script>
