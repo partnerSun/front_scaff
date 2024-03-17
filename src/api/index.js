@@ -86,5 +86,7 @@ axios.interceptors.request.use(
     // 对请求错误做些什么
     return Promise.reject(error);
   });
-  
+  //判断登录状态是否失效
+  //状态码是200还是401,
+  //如果是401，删除本地的token，跳转到登录页面
 export default request
