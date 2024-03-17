@@ -1,8 +1,5 @@
 import axios from 'axios'
 import {CONFIG} from '../config/index.js'
-import { ref } from 'vue'
-
-
 
 //定义四个有默认值的参数
 const request = (url='',data={},method='get',timeout=5000) =>{
@@ -23,7 +20,6 @@ const request = (url='',data={},method='get',timeout=5000) =>{
             .then(
                 (response)=>{
                     resolve(response)
-
                 }
             )
             //失败
@@ -56,12 +52,9 @@ const request = (url='',data={},method='get',timeout=5000) =>{
 // const tokenValue = ref("")
 axios.interceptors.request.use(
     function (config) {
-        // console.log("请求拦截器",config)
-        //添加时间戳 在请求当中
+        //在request时添加时间戳，解决缓存问题
         if (config.method=="get"){
-            //解决缓存
             let timeStamp = (new Date()).getTime()
-            // console.log("时间戳",timeStamp)
             //判断是否有Parmas参数
             if (config.params) {
                 //有params参数，就可以把时间戳添加到参数当中
@@ -73,23 +66,25 @@ axios.interceptors.request.use(
                 }
             }
         }
-        //从本地把token取出来
+        //从本地把token取出来，添加到请求头中
         let tokenValue = ""
         try {
             tokenValue = window.localStorage.getItem(CONFIG.TOKEN_NAME)
-            // console.log("从localStorage中获取token:",tokenValue)
         } catch (error) {
              tokenValue = ""
         }
+        // 
         if ( tokenValue == "" || tokenValue == null ) {
             config.headers[CONFIG.TOKEN_NAME] = ""
         }else {
             config.headers[CONFIG.TOKEN_NAME] = tokenValue
         }
-    // 在发送请求之前做些什么
-    return config;
+
+        // 在发送请求之前做些什么
+        return config;
   }, function (error) {
     // 对请求错误做些什么
     return Promise.reject(error);
   });
+  
 export default request

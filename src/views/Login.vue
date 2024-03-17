@@ -41,13 +41,6 @@
 
   //登录接口
   const submitForm = () =>{
-    // console.log()
-    // request(
-    //   'https://mock.mengxuegu.com/mock/65cf63a8351bbd02cf3398ab/api/auth/login',
-    //   {"username":loginInfo.username,"password":loginInfo.pass},
-    //   'post',
-    //   2000)
-    
     login(loginInfo.username,loginInfo.pass)
     //打印是否登录
     .then((response) => {
@@ -66,7 +59,7 @@
        })
       }
     })
-     //.catch错误处理在守卫中
+     //.catch错误在守卫中处理
   
   }
 
@@ -105,4 +98,4 @@
 
 <style scoped>
 
-</style>../api/login.js
+</style>
