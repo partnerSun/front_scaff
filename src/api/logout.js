@@ -1,5 +1,5 @@
-import API_CONFIG from './index.js'
-import request from '../api/index.js'
+import API_CONFIG from '../config/index.js'
+import request from './index.js'
 
 //封装的login只需要传入用户名和密码
 export const logout = (username,password) =>{
