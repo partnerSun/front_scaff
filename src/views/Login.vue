@@ -4,6 +4,9 @@
   import { login } from '../api/login.js';
   import { ElMessage } from 'element-plus'
   import { CONFIG } from '../config/index.js';
+  import {useRouter} from 'vue-router';
+
+  const router=useRouter()
 
   const loginInfo = reactive({
     pass: '',
@@ -57,6 +60,7 @@
           message: response.data.message,
           type: 'success',
        })
+       router.replace({ path: '/' })
       }
     })
      //.catch错误在守卫中处理
@@ -66,30 +70,26 @@
 </script>
 
 <template>
-    <el-card style="width: 300px;">
+    <el-card style="width: 320px;" >
       <h4>后台管理系统</h4>
       <el-form
       :model="loginInfo"
-      status-icon
       :rules="rules"
       ref="LoginRef"
      >
-    <el-form-item prop="username">
+    <el-form-item prop="username" class="form-item">
       <el-input :prefix-icon="User" v-model="loginInfo.username" placeholder="请输入用户名" clearable/>
     </el-form-item>
 
-    <el-form-item prop="pass">
+    <el-form-item prop="pass" class="form-item">
       <el-input :prefix-icon="Lock" show-password v-model="loginInfo.pass" type="password" autocomplete="off" placeholder="请输入密码" clearable />
     </el-form-item>
 
-    <!-- <el-form-item> -->
-    <div style="display: flex;justify-content: center;align-items:center">
-        <el-button type="primary" @click="submitForm()"  :disabled="loginState">
-        登录
-      </el-button>
-    </div>
 
-    <!-- </el-form-item> -->
+    <el-button type="primary" @click="submitForm()"  :disabled="loginState" style="margin: 5px auto 0px auto;">
+        登录
+    </el-button>
+
 
   </el-form>
   </el-card>
@@ -97,5 +97,13 @@
 </template>
 
 <style scoped>
+/* .card-body {
+  display: flex;
+  place-items: center;
+} */
 
+.form-item {
+  width: 240px; 
+  margin: 0px auto 17px auto;
+}
 </style>
