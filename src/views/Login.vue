@@ -70,33 +70,40 @@
 </script>
 
 <template>
-    <el-card style="width: 320px;" >
+  <div style="width: 100vw;">
+    <el-card class="el-card" >
       <h4>后台管理系统</h4>
       <el-form
-      :model="loginInfo"
-      :rules="rules"
-      ref="LoginRef"
-     >
-    <el-form-item prop="username" class="form-item">
-      <el-input :prefix-icon="User" v-model="loginInfo.username" placeholder="请输入用户名" clearable/>
-    </el-form-item>
+        :model="loginInfo"
+        :rules="rules"
+        ref="LoginRef"
+      >
+      <el-form-item prop="username" class="form-item">
+        <el-input :prefix-icon="User" v-model="loginInfo.username" placeholder="请输入用户名" clearable/>
+      </el-form-item>
 
-    <el-form-item prop="pass" class="form-item">
-      <el-input :prefix-icon="Lock" show-password v-model="loginInfo.pass" type="password" autocomplete="off" placeholder="请输入密码" clearable />
-    </el-form-item>
-
-
-    <el-button type="primary" @click="submitForm()"  :disabled="loginState" style="margin: 5px auto 0px auto;">
-        登录
-    </el-button>
+      <el-form-item prop="pass" class="form-item">
+        <el-input :prefix-icon="Lock" show-password v-model="loginInfo.pass" type="password" autocomplete="off" placeholder="请输入密码" clearable />
+      </el-form-item>
 
 
-  </el-form>
-  </el-card>
+      <el-button type="primary" @click="submitForm()"  :disabled="loginState" style="margin: 5px auto 0px auto;">
+          登录
+      </el-button>
+
+
+    </el-form>
+    </el-card>
+  </div>
 
 </template>
 
 <style scoped>
+
+.el-card{
+  width: 320px; 
+  margin: auto;
+}
 /* .card-body {
   display: flex;
   place-items: center;

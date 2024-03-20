@@ -9,4 +9,5 @@ npm install axios@latest
 npm install vue-router@latest
 npm install element-plus --save
 npm install @element-plus/icons-vue
+npm install -D less
 ```

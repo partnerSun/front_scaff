@@ -4,11 +4,12 @@ import {CONFIG} from '../config/index.js'
 
 //定义懒加载路由
 const Login = () => import('../views/Login.vue');
-const Index = () => import('../views/Index.vue');
+// const Index = () => import('../views/Index.vue');
+const Layout = () => import('../views/layout/Layout.vue')
 // 2. 定义一些路由
 const routes = [
     { path: '/login', component: Login },
-    { path: '/', component: Index },
+    { path: '/', component: Layout },
 ]
 
 // 3. 创建路由实例 并传递 `routes` 配置
@@ -28,8 +29,8 @@ const router = createRouter({
     const toPath = to.path
     //判断是否有token
     const tokenStatus = window.localStorage.getItem(CONFIG.TOKEN_NAME)
-    console.log("前置守卫-访问路径：",toPath)
-    console.log("前置守卫-toekn：",tokenStatus)
+    // console.log("前置守卫-访问路径：",toPath)
+    // console.log("前置守卫-token：",tokenStatus)
     if (toPath  === '/login' && tokenStatus == null){
       // 放行
       next()
