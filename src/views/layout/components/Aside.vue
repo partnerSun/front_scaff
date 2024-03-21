@@ -1,5 +1,6 @@
 <script  setup>
   import { GoldMedal ,Document,Menu as IconMenu,Location, Setting, } from '@element-plus/icons-vue'
+  import {MENU_CONFIG} from '../../../config/menu.js'
   const handleOpen = (key, keyPath) => {
         console.log("打开:",key, keyPath)
     }
@@ -22,43 +23,38 @@
     <el-row class="tac">
     <el-col >
     <el-menu
-        default-active="1-1" 
+        default-active="/user/list" 
         class="el-menu-vertical-demo"
         router
         @open="handleOpen"
         @close="handleClose"
         >
-        <el-sub-menu index="1">
-        <template #title>
-            <el-icon><location /></el-icon>
-            <span>Navigator One</span>
-        </template>
-            <el-menu-item index="1-1">item one</el-menu-item>
-            <el-menu-item index="1-2">item two</el-menu-item>
-            <el-menu-item index="1-3">item three</el-menu-item>
-
-            <el-sub-menu index="1-4">
-                <template #title>item four</template>
-                <el-menu-item index="1-4-1">item one</el-menu-item>
-            </el-sub-menu>
-
-        </el-sub-menu>
-
-        <el-sub-menu index="/usr">
-            <template #title>
-                <el-icon><icon-menu /></el-icon>
-                <span>用户信息</span>
+        <el-sub-menu v-for="(menu) in MENU_CONFIG" :key="menu.index" :index="menu.index">
+            <template #title>  
+                <span>{{ menu.title }}</span>
             </template>
-            <el-menu-item index="/usr/add">  
-                添加用户
-            </el-menu-item>
+            <!-- 判断是否有子菜单 -->
+            <!-- if-else放在template中，否则需要多加一层el-sub-menu和el-menu-item -->
+            <template v-if="menu.subMenu">
+                <el-sub-menu v-for="(submenu) in menu.subMenu" :key="submenu.index" :index="submenu.index">
+                    <template #title>
+                        <span> {{ submenu.title }} </span>
+                    </template>
+                    <el-menu-item v-for="(subitem) in submenu.items" :key="subitem.index" :index="subitem.index">
+                    {{ subitem.title }}
+                    </el-menu-item>
+                </el-sub-menu>
+            </template>
+
+            <template v-else>
+                <el-menu-item v-for="(item) in menu.items" :key="item.index" :index="item.index">
+                 {{ item.title }}
+                </el-menu-item>
+            </template>
+
         </el-sub-menu>
 
 
-        <el-menu-item index="3">  
-            <el-icon><document /></el-icon>
-            <span>Navigator Three</span>
-        </el-menu-item>
 
     </el-menu>
     </el-col>
