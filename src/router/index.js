@@ -1,5 +1,8 @@
 import {createWebHashHistory,createRouter} from 'vue-router'
 import {CONFIG} from '../config/index.js'
+import {userRoutes} from './user.js'
+
+
 
 
 //定义懒加载路由
@@ -10,6 +13,7 @@ const Layout = () => import('../views/layout/Layout.vue')
 const routes = [
     { path: '/login', component: Login },
     { path: '/', component: Layout },
+    userRoutes
 ]
 
 // 3. 创建路由实例 并传递 `routes` 配置

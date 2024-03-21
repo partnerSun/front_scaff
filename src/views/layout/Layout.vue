@@ -6,6 +6,7 @@
 </script>
 
 <template>
+  
   <div class="common-layout">
     <el-container class="el-container">
       <Aside></Aside>
