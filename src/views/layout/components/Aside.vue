@@ -1,6 +1,8 @@
 <script  setup>
   import { GoldMedal ,Document,Menu as IconMenu,Location, Setting, } from '@element-plus/icons-vue'
   import {MENU_CONFIG} from '../../../config/menu.js'
+  import '../../../assets/iconfont/iconfont.css'
+
   const handleOpen = (key, keyPath) => {
         console.log("打开:",key, keyPath)
     }
@@ -30,7 +32,8 @@
         @close="handleClose"
         >
         <el-sub-menu v-for="(menu) in MENU_CONFIG" :key="menu.index" :index="menu.index">
-            <template #title>  
+            <template #title>
+                <el-icon><span style="font-size: 28px;" :class="menu.icon"></span></el-icon>
                 <span>{{ menu.title }}</span>
             </template>
             <!-- 判断是否有子菜单 -->
@@ -38,6 +41,7 @@
             <template v-if="menu.subMenu">
                 <el-sub-menu v-for="(submenu) in menu.subMenu" :key="submenu.index" :index="submenu.index">
                     <template #title>
+                        <el-icon><span style="font-size: 18px;" :class="submenu.icon"></span></el-icon>
                         <span> {{ submenu.title }} </span>
                     </template>
                     <el-menu-item v-for="(subitem) in submenu.items" :key="subitem.index" :index="subitem.index">

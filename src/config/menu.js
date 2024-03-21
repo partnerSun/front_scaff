@@ -2,7 +2,7 @@ export const MENU_CONFIG = [
     {
         title: "用户管理",
         index: "/uesr",
-        icon: "",
+        icon: "iconfont icon-oftenyonghuguanli",
         // 
         items: [
             {
@@ -16,14 +16,14 @@ export const MENU_CONFIG = [
         ]
     },
     {
-        title: "产品介绍",
+        title: "产品分类",
         index: "/product",
-        icon: "",
+        icon: "iconfont icon-oftenchanpinjieshao",
         subMenu: [
             {
                 title: "水产品",
                 index: "/product/aquatic",
-                icon: "",
+                icon: "iconfont icon-oftenshuichanpin",
                 items: [
                     {
                         index: "/product/aquatic/add",
@@ -31,6 +31,21 @@ export const MENU_CONFIG = [
                     },
                     {
                         index: "/product/aquatic/list",
+                        title: "查看产品"
+                    }
+                ]
+            },
+            {
+                title: "电子产品",
+                index: "/product/elec",
+                icon: "iconfont icon-oftendianzichanpin-",
+                items: [
+                    {
+                        index: "/product/elec/add",
+                        title: "添加产品"
+                    },
+                    {
+                        index: "/product/elec/list",
                         title: "查看产品"
                     }
                 ]
