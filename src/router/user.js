@@ -7,6 +7,7 @@ export const userRoutes = {
 
         path: '/user/', 
         component: Layout,
+        redirect: "/user/list",
         children: [
             {path: 'add', component: userAdd},
             {path: 'list', component: userList}
