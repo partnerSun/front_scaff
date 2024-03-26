@@ -25,7 +25,7 @@
     <el-row class="tac">
     <el-col >
     <el-menu
-        default-active="/user/list" 
+        :default-active="$route.path" 
         class="el-menu-vertical-demo"
         router
         @open="handleOpen"
