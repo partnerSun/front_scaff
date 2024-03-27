@@ -3,8 +3,9 @@ import {getUserList} from '../../api/user.js';
 import { ElMessage } from 'element-plus';
 import {reactive,toRefs} from 'vue'
 
+
 const userList = reactive({
-  data: ""
+  items: [],
 })
 //获取用户列表
 const getUser = () =>{
@@ -19,15 +20,15 @@ const getUser = () =>{
           message: response.data.message,
           type: 'success',
        })
-      // const userList = [response.data.data.items][0]
-      userList.data = response.data.data.items
-      console.log("用户信息",userList)
+       userList.items = response.data.data.items
+       console.log("用户信息",userList)
       }
+
     })
      //.catch错误在守卫中处理
   
   }
-  const {userList2} = toRefs(userList.data)
+  const {items} = toRefs(userList)
 </script>
 
 <template>
@@ -41,7 +42,7 @@ const getUser = () =>{
       </div>
     </template>
 
-      <el-table :data="userList2" style="width: 100%">
+      <el-table :data="items" style="width: 100%">
         <!-- <el-table v-for="(userinfo) in userList" :key="userinfo.id" :data="userinfo" style="width: 100%">  -->
         <el-table-column prop="id" label="Id" width="180" />
         <el-table-column prop="username" label="Name" width="180" />
