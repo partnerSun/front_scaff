@@ -26,43 +26,42 @@
   })
 
 
-  let loginState = ref(true)
-  //监听用户名和密码的变化
-  watch([()=>loginInfo.username,()=>loginInfo.pass], () => {
-    //LoginRef和表单绑定
-    //通过validate函数判断表单是否符合input中的规则
-    LoginRef.value.validate((valid)=>{
-      //如果valid为true 代表表单校验成功
-      if (valid) {
-        loginState.value = false
+let loginState = ref(true)
+//监听用户名和密码的变化
+watch([()=>loginInfo.username,()=>loginInfo.pass], () => {
+  //LoginRef和表单绑定
+  //通过validate函数判断表单是否符合input中的规则
+  LoginRef.value.validate((valid)=>{
+    //如果valid为true 代表表单校验成功
+    if (valid) {
+      loginState.value = false
       } else {
         loginState.value = true
       }
     })
-
-  })
+})
 
   //登录接口
-  const submitForm = () =>{
-    login(loginInfo.username,loginInfo.pass)
-    .then((response) => {
-       //打印是否登录
-      console.log("登录成功，response:",response)
-      // response.status http请求的状态,axios自动返回的
-      // response.data.status 后端返回的状态，需要后端提供data.status
-      if ( response.data.status == 200 ){
-        //token存到本地
-        const token = response.data.data.token
-        //将token存储到localStorage的Authorization字段中
-        window.localStorage.setItem(CONFIG.TOKEN_NAME,token)
-        // 登录成功提示
-        ElMessage({
-          message: response.data.message,
-          type: 'success',
-       })
-       router.replace({ path: '/' })
-      }
-    })
+const submitForm = () =>{
+  login(loginInfo.username,loginInfo.pass)
+  .then((response) => {
+      //打印是否登录
+    console.log("登录成功，response:",response)
+    // response.status http请求的状态,axios自动返回的
+    // response.data.status 后端返回的状态，需要后端提供data.status
+    if ( response.data.status == 200 ){
+      //token存到本地
+      const token = response.data.data.token
+      //将token存储到localStorage的Authorization字段中
+      window.localStorage.setItem(CONFIG.TOKEN_NAME,token)
+      // 登录成功提示
+      ElMessage({
+        message: response.data.message,
+        type: 'success',
+      })
+      router.replace({ path: '/' })
+    }
+  })
      //.catch错误在守卫中处理
   
   }
