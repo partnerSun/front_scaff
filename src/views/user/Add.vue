@@ -35,6 +35,8 @@ const rules = reactive({
 
 const loading =ref(false)
 // 添加用户
+// 添加用户后 需要重新获取用户列表，这个操作不能直接在当前组件中执行，因为添加用户是在List组件调用的，所以子组件需要通过事件去通知
+
 const submit = () =>{
     //通过validate函数判断表单是否符合input中的规则
     userFormRef.value.validate((valid)=>{
