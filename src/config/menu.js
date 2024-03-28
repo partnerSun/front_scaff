@@ -5,10 +5,10 @@ export const MENU_CONFIG = [
         icon: "iconfont icon-oftenyonghuguanli",
         // 
         items: [
-            {
-                index: "/user/add",
-                title: "添加用户"
-            },
+            // {
+            //     index: "/user/add",
+            //     title: "添加用户"
+            // },
             {
                 index: "/user/list",
                 title: "查看用户"

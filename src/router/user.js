@@ -1,5 +1,5 @@
 const Layout = () => import('../views/layout/Layout.vue')
-const userAdd = () => import('../views/user/Add.vue')
+// const userAdd = () => import('../views/user/Add.vue')
 const userList = () => import('../views/user/List.vue')
 
 
@@ -9,8 +9,8 @@ export const userRoutes = {
         component: Layout,
         redirect: "/user/list",
         children: [
-            {path: 'add', component: userAdd},
-            {path: 'list', component: userList}
+            // {path: 'add', component: userAdd},
+            {path: 'list', component: userList},
         ]
 
 
