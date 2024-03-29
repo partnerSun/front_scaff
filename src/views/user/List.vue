@@ -8,11 +8,18 @@ const dialogFormVisible = ref(false)
 
 const loading = ref(true)
 
-const userList = reactive({
+const data = reactive({
   items: [],
+  userForm:{
+    username: '',
+    qq: '',
+    address: '',
+  },
 })
+const defaultMethod=ref('Create')
 //获取用户列表
 const getUser = () =>{
+  loading.value=true
   getUserListHandler()
     .then((response) => {
         // 获取成功提示
@@ -20,7 +27,7 @@ const getUser = () =>{
         //   message: response.data.message,
         //   type: 'success',
         // })
-        userList.items = response.data.data.items
+        data.items = response.data.data.items
         // console.log("用户信息",userList)
         //当拿到数据后，停止刷新的动作
         loading.value=false
@@ -30,9 +37,13 @@ const getUser = () =>{
   
 }
 
-const {items} = toRefs(userList)
-  // 使用生命周期，在打开页面时自动加载数据
-  onBeforeMount(() => {
+const closeRefresh = () =>{
+  getUser()
+}
+const {items} = toRefs(data)
+
+// 使用生命周期，在打开页面时自动加载数据
+onBeforeMount(() => {
     getUser()
 })
 
@@ -79,6 +90,13 @@ const delUser = (row) => {
 //添加用户，使用dialog组件
 const addUser = () =>{
   dialogFormVisible.value=true
+  defaultMethod.value='Create'
+}
+
+//编辑、更新用户，使用dialog组件
+const editUser = () =>{
+  dialogFormVisible.value=true
+  defaultMethod.value='Edit'
 }
 
 </script>
@@ -109,16 +127,25 @@ const addUser = () =>{
       <el-table-column fixed="right" label="Operations">
         <!-- scope绑定当前操作的行 -->
         <template #default="scope">
-          <el-button link type="primary" size="small">编辑</el-button>
+          <el-button link type="primary" size="small" @click="editUser()">编辑</el-button>
           <el-button link type="primary" size="small" @click="delUser(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
   </el-card>
 
-  <!-- 添加用户 -->
-  <el-dialog v-model="dialogFormVisible" title="添加用户" width="20%">
-    <Add></Add>
+  <!-- 添加用户,关闭窗口时触发重新获取用户列表的事件 -->
+  <el-dialog 
+    
+    @closed="closeRefresh()" 
+    v-model="dialogFormVisible" 
+    destroy-on-close
+    :title="defaultMethod=='Create'?'添加用户':'更新用户'" 
+    width="20%"
+  >
+    <!-- 触发事件 -->
+    <!-- <Add @callback="getUser"></Add> -->
+    <Add :method="defaultMethod"></Add> 
   </el-dialog>
 
   

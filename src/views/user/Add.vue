@@ -11,6 +11,15 @@ const data = reactive({
     },
 
 })
+const props = defineProps({
+    method: {
+        String,
+        default: "Create"
+    },
+    userForm: {
+        Object
+    }
+})
 // 转换为普通对象 给template使用
 const {userForm} = toRefs(data)
 //此变量用于绑定form表单的属性
@@ -36,7 +45,7 @@ const rules = reactive({
 const loading =ref(false)
 // 添加用户
 // 添加用户后 需要重新获取用户列表，这个操作不能直接在当前组件中执行，因为添加用户是在List组件调用的，所以子组件需要通过事件去通知
-
+// const emit = defineEmits(['callback'])
 const submit = () =>{
     //通过validate函数判断表单是否符合input中的规则
     userFormRef.value.validate((valid)=>{
@@ -50,7 +59,8 @@ const submit = () =>{
              type: 'success',
             })
             loading.value=false
-            // console.log("刷新状态-添加用户-后",loading.value)
+            // 标记事件
+            // emit('callback')
         })
       } else {
         ElMessage({
@@ -60,6 +70,7 @@ const submit = () =>{
       }
     })
 }
+
 </script>
 
 <template>
@@ -85,8 +96,9 @@ const submit = () =>{
     </el-form>
     <span>
         <el-button @click="resetForm()">重置</el-button>
-
-        <el-button type="primary" @click="submit()">提交</el-button>
+        <el-button type="primary" @click="submit()">
+            {{ props.method=="Create"?"添加":"更新" }}
+        </el-button>
 
     </span>
 </template>

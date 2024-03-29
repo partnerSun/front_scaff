@@ -22,5 +22,12 @@ export const delUserHandler = (id) =>{
 
 //封装添加用户的接口，传入一个object 用来包含要添加用户的信息
 export const addUserHandler = (userForm) =>{
+    console.log("添加用户")
    return request(API_CONFIG.userAddApi,userForm,'post',3000)
 }
+
+//封装编辑用户的接口
+export const updateUserHandler = (userForm) =>{
+    console.log("更新用户")
+    return request(API_CONFIG.userUpdateApi,userForm,'post',3000)
+ }

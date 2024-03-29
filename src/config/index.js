@@ -4,6 +4,7 @@ export const API_CONFIG  = {
     userListApi: "https://mock.mengxuegu.com/mock/65d498da351bbd02cf339bad/vueapi/user/list",
     userDelApi: "https://mock.mengxuegu.com/mock/65d498da351bbd02cf339bad/vueapi/user/delete",
     userAddApi: "https://mock.mengxuegu.com/mock/65d498da351bbd02cf339bad/vueapi/user/add",
+    userUpdateApi: "https://mock.mengxuegu.com/mock/65d498da351bbd02cf339bad/vueapi/user/update",
 }
 
 export const CONFIG = {
