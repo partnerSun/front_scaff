@@ -1,6 +1,6 @@
 <script  setup>
-import { reactive,ref,toRefs } from 'vue';
-import {addUserHandler} from '../../api/user.js';
+import { reactive,ref,toRefs,onMounted } from 'vue';
+import {addUserHandler, updateUserHandler} from '../../api/user.js';
 import { ElMessage } from 'element-plus';
 
 const data = reactive({
@@ -20,6 +20,19 @@ const props = defineProps({
         Object
     }
 })
+
+// 使用生命周期，在自动赋值，props的值不能直接使用
+// onBeforeMount(() => {
+onMounted(() => {
+    //这种方法存在问题：浅拷贝 
+    // data.userForm=props.userForm
+    // 先把对象转换成json字符串
+    const jsonString = JSON.stringify(props.userForm)
+    //再把json转换成object
+    data.userForm = JSON.parse(jsonString)
+
+})
+
 // 转换为普通对象 给template使用
 const {userForm} = toRefs(data)
 //此变量用于绑定form表单的属性
@@ -40,7 +53,9 @@ const rules = reactive({
       { required: true, message: '请输入qq号码', trigger: 'blur' },
       // { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },
     ]
-  })
+})
+
+const emit = defineEmits(['callback'])
 
 const loading =ref(false)
 // 添加用户
@@ -52,16 +67,28 @@ const submit = () =>{
          //如果valid为true 代表表单校验成功
         if (valid) {
         loading.value=true
-        addUserHandler(data.userForm)
-        .then((response)=>{
-            ElMessage({
-             message: response.data.message,
-             type: 'success',
+        if (props.method=="Create"){
+            addUserHandler(data.userForm)
+            .then((response)=>{
+                ElMessage({
+                message: response.data.message,
+                type: 'success',
+                })
+                loading.value=false
             })
-            loading.value=false
-            // 标记事件
-            // emit('callback')
-        })
+        }else if (props.method=="Edit"){
+            updateUserHandler(data.userForm)
+            .then((response)=>{
+                ElMessage({
+                message: response.data.message,
+                type: 'success',
+                })
+
+                loading.value=false
+                emit('callback')
+            }) 
+        }
+
       } else {
         ElMessage({
             message: "输入信息不完整",
@@ -105,7 +132,7 @@ const submit = () =>{
 
 <style>
 .form-item{
-    width: 300px;
+    width: 85%;
     margin: 20px auto;
 }
 </style>

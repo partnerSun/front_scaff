@@ -6,6 +6,20 @@
   "description": "常用图标",
   "glyphs": [
     {
+      "icon_id": "9693914",
+      "name": "icon_收起侧边栏",
+      "font_class": "icon_shouqicebianlan",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "9693915",
+      "name": "icon_打开侧边栏",
+      "font_class": "icon_dakaicebianlan",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
       "icon_id": "1795926",
       "name": "水产品",
       "font_class": "shuichanpin",

@@ -40,7 +40,7 @@ const getUser = () =>{
 const closeRefresh = () =>{
   getUser()
 }
-const {items} = toRefs(data)
+const {items,userForm} = toRefs(data)
 
 // 使用生命周期，在打开页面时自动加载数据
 onBeforeMount(() => {
@@ -75,14 +75,13 @@ const delUser = (row) => {
         getUser()
         //当拿到数据后，停止刷新的动作
         loading.value=false
-        
-        // console.log("刷新状态-删除用户-后",loading.value)
+
       })
   })
   .catch(() => {
     ElMessage({
       type: 'info',
-      message: 'Delete canceled',
+      message: '取消删除',
     })
   })
 
@@ -94,11 +93,16 @@ const addUser = () =>{
 }
 
 //编辑、更新用户，使用dialog组件
-const editUser = () =>{
+const editUser = (row) =>{
   dialogFormVisible.value=true
   defaultMethod.value='Edit'
+  data.userForm=row
 }
 
+const callback = () =>{
+  dialogFormVisible.value=false
+  // getUser()
+}
 </script>
 
 <template>
@@ -127,7 +131,7 @@ const editUser = () =>{
       <el-table-column fixed="right" label="Operations">
         <!-- scope绑定当前操作的行 -->
         <template #default="scope">
-          <el-button link type="primary" size="small" @click="editUser()">编辑</el-button>
+          <el-button link type="primary" size="small" @click="editUser(scope.row)">编辑</el-button>
           <el-button link type="primary" size="small" @click="delUser(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -136,7 +140,6 @@ const editUser = () =>{
 
   <!-- 添加用户,关闭窗口时触发重新获取用户列表的事件 -->
   <el-dialog 
-    
     @closed="closeRefresh()" 
     v-model="dialogFormVisible" 
     destroy-on-close
@@ -145,7 +148,7 @@ const editUser = () =>{
   >
     <!-- 触发事件 -->
     <!-- <Add @callback="getUser"></Add> -->
-    <Add :method="defaultMethod"></Add> 
+    <Add :userForm="userForm" :method="defaultMethod" @callback="callback()"></Add> 
   </el-dialog>
 
   
