@@ -1,26 +1,37 @@
-// import definePinia from "../definePinia.vue";
-
 import { defineStore } from "pinia";
 import {ref,computed} from 'vue'
 
-export const useUserdemoStore = defineStore('Userdemo',()=>{
+
+export const useisCollapseStore = defineStore('isCollapse',()=>{
     //state
-    const name = ref('sunqinjian')
-    const email = ref('123@qq.com')
-    //getters
-    const fullName = computed(
-        ()=> {
-            return `${name.value} (${email.value})`
-        }
-    )
+    const isCollapse = ref(false)
+    getters: {}
+    // const fullName = computed(
+    // )
     //action
-    const updateName = (newName) =>{
-        name.value = newName
+    const changeisCollapse = () =>{
+        isCollapse.value = !isCollapse.value
+        console.log("isCollapse:",isCollapse.value)
     }
-    const updateEmial = (newEmail) =>{
-        email.value = newEmail
+
+    return {isCollapse,changeisCollapse}
     }
-    return {name,email,fullName,updateName,updateEmial}
-}
+)
+
+export const useisCollapseStore2 = defineStore('isCollapse',{
+    //state
+    state: ()=>{
+        return {
+            isCollapse: false
+        }
+    },
+    getters: {},
+    actions: {
+        changeisCollapse(){
+            this.isCollapse = !this.isCollapse
+            console.log("isCollapse:",this.isCollapse)
+        }
+    }
+    }
 
 )

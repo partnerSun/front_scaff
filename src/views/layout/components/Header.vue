@@ -5,6 +5,7 @@ import { logoutHandler } from '../../../api/logout.js';
 import { CONFIG } from '../../../config/index.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import {useRouter} from 'vue-router';
+import {useisCollapseStore} from '../../../store/index.js'
 
 const router=useRouter()
 
@@ -39,11 +40,16 @@ const logout =() =>{
   })
 
 }
+
+const changeCollapse = () =>{
+  const iscoll = useisCollapseStore()
+  iscoll.changeisCollapse()
+}
 </script>
 
 <template>
         <el-header class="el_header">
-                <el-button class="el_button">
+                <el-button class="el_button" @click="changeCollapse()">
                         <el-icon class="iconfont icon-oftenicon_dakaicebianlan"></el-icon>
                 </el-button>
                 <el-button class="el_button" @click="logout()">

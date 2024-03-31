@@ -1,10 +1,16 @@
 <script  setup>
   import { GoldMedal ,Document,Menu as IconMenu,Location, Setting, } from '@element-plus/icons-vue'
   import {MENU_CONFIG} from '../../../config/menu.js'
+  import { storeToRefs } from "pinia";
   import '../../../assets/iconfont/iconfont.css'
   import {ref} from 'vue'
-//   菜单折叠开关
-  const isCollapse = ref(false)
+  import {useisCollapseStore} from '../../../store/index.js'
+    //   菜单折叠开关
+  
+//   const iscoll = useisCollapseStore2()
+//   const isCollapse = iscoll.isCollapse
+  const {isCollapse} = storeToRefs(useisCollapseStore())
+
   const handleOpen = (key, keyPath) => {
         console.log("打开:",key, keyPath)
     }
