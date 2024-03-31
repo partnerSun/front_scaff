@@ -14,7 +14,7 @@
       <el-container class="el-container__el-container">
         <Header></Header>
         <Main></Main>
-        <Footer></Footer>        
+        <!-- <Footer></Footer>         -->
       </el-container>
 
     </el-container>
