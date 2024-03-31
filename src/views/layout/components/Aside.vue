@@ -3,7 +3,7 @@
   import {MENU_CONFIG} from '../../../config/menu.js'
   import { storeToRefs } from "pinia";
   import '../../../assets/iconfont/iconfont.css'
-  import {ref} from 'vue'
+//   import {ref} from 'vue'
   import {useisCollapseStore} from '../../../store/index.js'
     //   菜单折叠开关
   
@@ -24,7 +24,7 @@
      <div class="aside-div">
         <router-link to="/">
           <el-button text style="font-size: 20px;">
-            <el-icon style="margin-right: 5px;"><GoldMedal /></el-icon>
+            <el-icon style="margin-right: 5px;padding-left: 12px;"><GoldMedal /></el-icon>
               <span v-show="!isCollapse">Admin </span>
           </el-button>
         </router-link>
@@ -39,6 +39,7 @@
             :collapse="isCollapse"
             @open="handleOpen"
             @close="handleClose"
+            :collapse-transition="false"
             >
             <el-sub-menu v-for="(menu) in MENU_CONFIG" :key="menu.index" :index="menu.index">
                 <template #title>
@@ -82,6 +83,11 @@
 .el-aside{
     width: 250px;
     border-right: 1px solid #ccc;
+    overflow: hidden;
+    transition: width 0.25s;
+    -webkit-transition: width 0.25s;
+    -moz-transition: width 0.25s;
+    -o-transition: width 0.25s;
     .aside-div{
         height: 50px;
         width:"100%";
@@ -92,6 +98,14 @@
     }
 }
 
+// 解决卡顿后 动作僵硬的问题
+// .aside{
+//     overflow: hidden;
+//     transition: width 0.25s;
+//     -webkit-transition: width 0.25s;
+//     -moz-transition: width 0.25s;
+//     -o-transition: width 0.25s;
 
+// }
 
 </style>

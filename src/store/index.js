@@ -17,21 +17,3 @@ export const useisCollapseStore = defineStore('isCollapse',()=>{
     return {isCollapse,changeisCollapse}
     }
 )
-
-export const useisCollapseStore2 = defineStore('isCollapse',{
-    //state
-    state: ()=>{
-        return {
-            isCollapse: false
-        }
-    },
-    getters: {},
-    actions: {
-        changeisCollapse(){
-            this.isCollapse = !this.isCollapse
-            console.log("isCollapse:",this.isCollapse)
-        }
-    }
-    }
-
-)

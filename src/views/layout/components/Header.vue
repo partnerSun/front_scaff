@@ -6,6 +6,7 @@ import { CONFIG } from '../../../config/index.js';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import {useRouter} from 'vue-router';
 import {useisCollapseStore} from '../../../store/index.js'
+import { storeToRefs } from "pinia";
 
 const router=useRouter()
 
@@ -45,12 +46,16 @@ const changeCollapse = () =>{
   const iscoll = useisCollapseStore()
   iscoll.changeisCollapse()
 }
+const {isCollapse} = storeToRefs(useisCollapseStore())
 </script>
 
 <template>
         <el-header class="el_header">
                 <el-button class="el_button" @click="changeCollapse()">
-                        <el-icon class="iconfont icon-oftenicon_dakaicebianlan"></el-icon>
+                        <!-- <el-icon v-if="isCollapse" class="iconfont icon-oftenicon_dakaicebianlan"></el-icon>
+                        <el-icon v-else class="iconfont icon-oftenicon_shouqicebianlan"></el-icon> -->
+                        <el-icon v-show="isCollapse" class="iconfont icon-oftenicon_dakaicebianlan"></el-icon>
+                        <el-icon v-show="!isCollapse" class="iconfont icon-oftenicon_shouqicebianlan"></el-icon>
                 </el-button>
                 <el-button class="el_button" @click="logout()">
                         <el-icon><SwitchButton /></el-icon>
