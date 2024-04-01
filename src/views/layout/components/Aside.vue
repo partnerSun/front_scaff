@@ -97,7 +97,8 @@
             }
     }
 }
-
+// 解决点击button有黑框的问题
+button:focus { outline: none; }
 // 解决卡顿后 动作僵硬的问题
 // .aside{
 //     overflow: hidden;

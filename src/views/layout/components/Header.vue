@@ -75,4 +75,7 @@ const {isCollapse} = storeToRefs(useisCollapseStore())
         justify-content: space-between;
         align-items:center;
 }
+
+/* // 解决点击button有黑框的问题 */
+button:focus { outline: none; }
 </style>
