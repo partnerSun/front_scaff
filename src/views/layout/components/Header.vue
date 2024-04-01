@@ -30,7 +30,7 @@ const logout =() =>{
           type: 'success',
         })
         window.localStorage.removeItem(CONFIG.TOKEN_NAME)
-        router.replace({ path: '/' })
+        router.replace({ path: '/login' })
       })
   })
   .catch(() => {
