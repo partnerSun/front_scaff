@@ -88,6 +88,7 @@ const delUser = (row) => {
 }
 //添加用户，使用dialog组件
 const addUser = () =>{
+  data.userForm={}
   dialogFormVisible.value=true
   defaultMethod.value='Create'
 }
